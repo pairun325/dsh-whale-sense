@@ -1,0 +1,45 @@
+{
+  "name": "dsh-whale-sense",
+  "version": "0.1.0",
+  "description": "让鲸鱼娘看着你的屏幕陪你玩：检测画面变化，自动看一眼、说一句，字幕挂在屏幕底部。",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "companion",
+    "screen",
+    "watch",
+    "subtitles",
+    "windows"
+  ],
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "helper/sense.py",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "license": "MIT",
+  "author": "githu-mensk",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/githu-mensk/dsh-whale-sense.git"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    }
+  }
+}
