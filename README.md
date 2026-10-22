@@ -9,6 +9,10 @@
 
 只支持 Windows（Pillow + Win32 前台窗口标题）。
 
+## 宣传片
+
+25 秒，带配音：[assets/promo.mp4](assets/promo.mp4)
+
 ## 工具
 
 | 工具 | 作用 |
