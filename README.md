@@ -34,7 +34,7 @@
 ## 安装
 
 ```sh
-dsh plugin --profile web add github:githu-mensk/dsh-whale-sense
+dsh plugin --profile web add github:pairun325/dsh-whale-sense
 ```
 
 或者手动：profile 的 `dependencies` 加 `"dsh-whale-sense": "link:E:/dswork/plugins/dsh-whale-sense"`，`bundles` 加 `"dsh-whale-sense"`，重启。

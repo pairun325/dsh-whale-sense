@@ -32,7 +32,7 @@
   "author": "githu-mensk",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/githu-mensk/dsh-whale-sense.git"
+    "url": "git+https://github.com/pairun325/dsh-whale-sense.git"
   },
   "dsh": {
     "bundle": {
