@@ -8,6 +8,12 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
 
+// 这个用例靠 powershell 弹一个绿色窗口来制造「画面变化」，只有 Windows 有 powershell。
+if (process.platform !== 'win32') {
+  console.log('SKIP  watch-test 需要 powershell 弹窗制造画面变化，只在 Windows 上跑（其余平台用 host-test 就够）');
+  process.exit(0);
+}
+
 const tempHome = fs.mkdtempSync(path.join(os.tmpdir(), 'whale-sense-watch-'));
 process.env.DSH_HOME = tempHome;
 

@@ -122,7 +122,8 @@ try {
   check('消息是 user 角色', message.role === 'user');
   check('来源是 producer-owned 的插件 kind', message.source?.kind === 'plugin:dsh-whale-sense');
   check('消息带着截图路径', text.includes(String(body.path ?? '???')));
-  check('消息要求只出字幕', text.includes('speak=false'));
+  // 装了 dsh-whale-voice 才会在提示词里点 voice_say；没装就不该点，免得模型找不存在的东西。
+  check('消息不强制不存在的语音工具', text.includes('speak=false') || !text.includes('voice_say'));
 
   const noAgent = await call('POST', '/whale-sense/snap', {});
   check('snap 路由能用', noAgent.statusCode === 200 && noAgent.json().ok === true);
