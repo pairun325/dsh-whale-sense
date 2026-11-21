@@ -1,7 +1,7 @@
 {
   "name": "dsh-whale-sense",
-  "version": "0.1.0",
-  "description": "让鲸鱼娘看着你的屏幕陪你玩：检测画面变化，自动看一眼、说一句，字幕挂在屏幕底部。",
+  "version": "0.2.0",
+  "description": "让鲸鱼娘看着你的屏幕陪你玩：检测画面变化，自动看一眼、说一句，字幕挂在屏幕底部。Windows / macOS / Linux。",
   "keywords": [
     "dsh",
     "dsh-plugin",
@@ -10,6 +10,9 @@
     "screen",
     "watch",
     "subtitles",
+    "macos",
+    "linux",
+    "cross-platform",
     "windows"
   ],
   "type": "module",

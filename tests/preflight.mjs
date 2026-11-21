@@ -7,9 +7,35 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
-const PROFILE = 'C:/Users/93116/.dsh/profiles/desktop';
-const PLUGIN = 'E:/dswork/plugins/dsh-whale-sense';
+const DSH_HOME = process.env.DSH_HOME || path.join(os.homedir(), '.dsh');
+// DSH_PROFILE 是档案名（desktop），不是路径
+const PROFILE = path.isAbsolute(process.env.DSH_PROFILE ?? '')
+  ? process.env.DSH_PROFILE
+  : path.join(DSH_HOME, 'profiles', process.env.DSH_PROFILE || 'desktop');
+const PLUGIN = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+/** 找带 Pillow 的 python：先看环境变量，再扫 DSH 自带运行时，最后退回 PATH。 */
+function resolvePython() {
+  if (process.env.SENSE_PYTHON) return process.env.SENSE_PYTHON;
+  const entry = process.platform === 'win32' ? ['python.exe'] : ['bin', 'python3'];
+  const candidates = [];
+  try {
+    const runtimes = path.join(DSH_HOME, 'dsh-runtimes');
+    for (const name of fs.readdirSync(runtimes).sort().reverse()) {
+      candidates.push(path.join(runtimes, name, 'dependencies', 'python', ...entry));
+    }
+  } catch {
+    /* 没运行时目录 */
+  }
+  candidates.push(process.platform === 'win32' ? 'python.exe' : 'python3');
+  for (const candidate of candidates) {
+    if (path.isAbsolute(candidate) && !fs.existsSync(candidate)) continue;
+    return candidate;
+  }
+  return 'python3';
+}
 const failures = [];
 
 async function check(label, fn) {
@@ -65,7 +91,7 @@ await check('主入口与面板文件能从包里导出', () => {
 });
 
 await check('helper 能编译', () => {
-  execFileSync('E:/ds/resources/runtime/primary-runtime/dependencies/python/python.exe', [
+  execFileSync(resolvePython(), [
     '-c',
     'import py_compile,sys; py_compile.compile(sys.argv[1], doraise=True)',
     path.join(PLUGIN, 'helper/sense.py'),
